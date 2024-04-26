@@ -6,6 +6,8 @@ using Rocket.Unturned.Chat;
 using Rocket.Core.Plugins;
 using Rocket.Core.Logging;
 using SDG.Unturned;
+using Rocket.Core;
+using System.Linq;
 
 namespace PhaserArray.XPForKills
 {
@@ -41,7 +43,7 @@ namespace PhaserArray.XPForKills
 				if (murderer.Player != null)
 				{
 					// Teamkilling
-					if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
+					if (Config.CheckSteamGroupTeamkill && IsSameTeam(murderer, player))
 					{
 						// If the murderer is not exempt from the penalty, apply it.
 						// Or if they are exempt, apply the death penalty to the victim.
@@ -94,6 +96,15 @@ namespace PhaserArray.XPForKills
 			}
 		}
 		
+		public bool IsSameTeam(UnturnedPlayer murderer, UnturnedPlayer victim)
+        {
+			string murdererTeam = R.Permissions.GetGroups(murderer, true).FirstOrDefault(g => Config.TeamPermissionGroups.Contains(g.Id))?.Id;
+			if (string.IsNullOrEmpty(murdererTeam)) return false;
+			string victimTeam = R.Permissions.GetGroups(victim, true).FirstOrDefault(g => Config.TeamPermissionGroups.Contains(g.Id))?.Id;
+			if (string.IsNullOrEmpty(victimTeam)) return false;
+			return murdererTeam != victimTeam;
+        }
+
 		private void KillReward(UnturnedPlayer murderer, UnturnedPlayer victim, ELimb limb)
 		{
 			var limbModifier = GetLimbModifier(limb);
