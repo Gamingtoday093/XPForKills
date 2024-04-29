@@ -1,4 +1,5 @@
 ﻿using Rocket.API;
+using System.Xml.Serialization;
 
 namespace PhaserArray.XPForKills
 {
@@ -8,6 +9,7 @@ namespace PhaserArray.XPForKills
 		public bool CheckSteamGroupTeamkill;
 		public bool DisableMessages;
 		public string NoTeamkillPenaltyPermission;
+		[XmlArrayItem("PermissionGroup")]
 		public string[] TeamPermissionGroups;
 
 		public int KillXP;
@@ -26,7 +28,7 @@ namespace PhaserArray.XPForKills
 		public void LoadDefaults()
 		{
 			CheckSteamGroupTeamkill = true;
-			DisableMessages = false;
+			DisableMessages = true;
 			NoTeamkillPenaltyPermission = "XPForKills.NoTeamkillPenalty";
 			TeamPermissionGroups = new string[]
 			{
@@ -34,18 +36,18 @@ namespace PhaserArray.XPForKills
 				"Allies"
 			};
 
-			KillXP = 50;
+			KillXP = 26;
 			HeadModifier = 1.5f;
 			TorsoModifier = 1.0f;
 			ArmModifier = 0.75f;
 			LegModifier = 0.5f;
 
-			TeamkillXP = -500;
-			SuicideXP = -50;
-			DeathXP = -50;
-			BreathXP = -50;
+			TeamkillXP = -300;
+			SuicideXP = -10;
+			DeathXP = -10;
+			BreathXP = -10;
             ZombieXP = -50;
-            FireXP = -50;
+            FireXP = -10;
 		}
 	}
 }

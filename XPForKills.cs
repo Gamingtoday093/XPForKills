@@ -19,9 +19,9 @@ namespace PhaserArray.XPForKills
 		protected override void Load()
 		{
 			Instance = this;
-			Config = Instance.Configuration.Instance;
+			Config = Configuration.Instance;
 			UnturnedPlayerEvents.OnPlayerDeath += OnPlayerDeath;
-			Logger.Log("Plugin Loaded");
+			Logger.Log($"{Name} {Assembly.GetName().Version} has been Loaded");
 		}
 
 		protected override void Unload()
