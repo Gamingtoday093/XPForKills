@@ -102,7 +102,7 @@ namespace PhaserArray.XPForKills
 			if (string.IsNullOrEmpty(murdererTeam)) return false;
 			string victimTeam = R.Permissions.GetGroups(victim, true).FirstOrDefault(g => Config.TeamPermissionGroups.Contains(g.Id))?.Id;
 			if (string.IsNullOrEmpty(victimTeam)) return false;
-			return murdererTeam != victimTeam;
+			return murdererTeam == victimTeam;
         }
 
 		private void KillReward(UnturnedPlayer murderer, UnturnedPlayer victim, ELimb limb)
